@@ -19,9 +19,10 @@
     --brand-border:#A9D8EF;
     --heading:#5A8FA8;
     --text-muted:#4F6D7A;
-    --text:#444444;
+    --text:#1800AE;
     --accent-deep:#3E6E85;
     --accent-deep-hover:#33596D;
+    --logo-blue:#1800AE;
     --shadow-sm:0 6px 18px rgba(79,109,122,.12);
     --shadow-md:0 14px 34px rgba(79,109,122,.18);
     --radius:15px;
@@ -34,6 +35,7 @@
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6}
+  body,body *{color:#1800AE!important}
   img{max-width:100%;display:block}
   a{color:inherit}
   h1,h2{font-family:var(--font-display)}
@@ -72,7 +74,16 @@
   .hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:50px}
   .hero-text{max-width:520px}
   .hero-badge{display:inline-block;background:rgba(255,255,255,.75);color:var(--accent-deep);font-weight:600;font-size:.85rem;padding:8px 16px;border-radius:999px;margin-bottom:18px;opacity:0;animation:riseIn .6s ease forwards}
-  .hero-text h1{font-size:2.5rem;color:var(--text-muted);font-weight:700;line-height:1.15;opacity:0;animation:riseIn .6s ease .12s forwards}
+  .hero-text h1{color:var(--logo-blue);font-weight:700;line-height:1.05;opacity:0;animation:riseIn .6s ease .12s forwards}
+  .hero-title-main{display:block;text-transform:uppercase;font-size:clamp(3rem,11.5vw,4.6rem);line-height:.92;letter-spacing:.015em}
+  .hero-title-main,.hero-title-sub{
+    -webkit-text-stroke:2px #fff;
+    paint-order:stroke fill;
+    text-shadow:
+      -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff, 2px 2px 0 #fff,
+      0 -2px 0 #fff, 0 2px 0 #fff, -2px 0 0 #fff, 2px 0 0 #fff;
+  }
+  .hero-title-sub{display:block;text-transform:uppercase;font-size:clamp(1rem,4vw,1.62rem);line-height:1.1;letter-spacing:.035em;margin-top:4px;-webkit-text-stroke-width:1.4px}
   .hero-tagline{margin-top:16px;font-size:1.05rem;color:var(--text-muted);opacity:0;animation:riseIn .6s ease .24s forwards}
   .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;opacity:0;animation:riseIn .6s ease .36s forwards}
   .hero-media{position:relative;flex-shrink:0;opacity:0;animation:heroMediaIn .7s ease .2s forwards}
@@ -184,10 +195,10 @@
   }
   @keyframes foamBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 
-  /* rubber duck riding the surface */
-  .bath-duck{position:absolute;bottom:100%;left:8%;width:54px;margin-bottom:-6px;animation:duckBob 4.5s ease-in-out infinite;transform-origin:50% 90%}
-  @keyframes duckBob{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-8px) rotate(5deg)}}
-  @media(max-width:600px){.bath-duck{width:40px;left:6%}}
+  /* white Pomeranian enjoying the bath */
+  .bath-pom{position:absolute;bottom:100%;left:8%;width:66px;margin-bottom:-4px;animation:pomBob 4.5s ease-in-out infinite;transform-origin:50% 95%}
+  @keyframes pomBob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-7px) rotate(3deg)}}
+  @media(max-width:600px){.bath-pom{width:48px;left:6%}}
 
   /* bubbles */
   .bath-bubbles{position:absolute;inset:0;overflow:hidden}
@@ -217,7 +228,7 @@
     .hero-badge,.hero-text h1,.hero-tagline,.hero-cta,.hero-media{animation:none;opacity:1}
     *{transition-duration:.01ms!important}
     .bath-bubbles{display:none}
-    .bath-wave,.bath-foam span,.bath-duck{animation:none}
+    .bath-wave,.bath-foam span,.bath-pom{animation:none}
   }
 </style>
 </head>
@@ -230,12 +241,39 @@
     <div class="bath-wave w1"></div>
     <div class="bath-wave w2"></div>
     <div class="bath-foam" id="bathFoam"></div>
-    <svg class="bath-duck" viewBox="0 0 64 56" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="30" cy="40" rx="24" ry="13" fill="#FFD466"/>
-      <path d="M30 27c0-9 7-16 16-16s16 7 16 16-7 15-16 15H30z" fill="#FFE08A" opacity=".9"/>
-      <circle cx="42" cy="18" r="13" fill="#FFD466"/>
-      <circle cx="46" cy="15" r="2.4" fill="#4F6D7A"/>
-      <path d="M55 19l8 3-8 3z" fill="#F5A25D"/>
+    <svg class="bath-pom" viewBox="0 0 72 64" xmlns="http://www.w3.org/2000/svg">
+      <g fill="#EDF5FA">
+        <circle cx="16" cy="54" r="11"/><circle cx="30" cy="57" r="12"/>
+        <circle cx="44" cy="55" r="11"/><circle cx="56" cy="52" r="9"/>
+      </g>
+      <g fill="#FFFFFF">
+        <circle cx="19" cy="50" r="10"/><circle cx="33" cy="52" r="11"/>
+        <circle cx="47" cy="50" r="10"/><circle cx="56" cy="46" r="8"/>
+      </g>
+      <g fill="#FFFFFF">
+        <circle cx="34" cy="26" r="16"/>
+        <circle cx="20" cy="22" r="7"/><circle cx="18" cy="32" r="6.5"/>
+        <circle cx="48" cy="22" r="7"/><circle cx="50" cy="32" r="6.5"/>
+        <circle cx="26" cy="13" r="6.5"/><circle cx="42" cy="13" r="6.5"/>
+        <circle cx="34" cy="40" r="7.5"/>
+      </g>
+      <g fill="#F3C9CE" opacity=".65">
+        <ellipse cx="23" cy="31" rx="4.5" ry="3"/><ellipse cx="45" cy="31" rx="4.5" ry="3"/>
+      </g>
+      <g fill="none" stroke="#4F6D7A" stroke-width="2.2" stroke-linecap="round">
+        <path d="M25 26 q3.5 -4 7 0"/><path d="M40 26 q3.5 -4 7 0"/>
+        <path d="M34 34.5 q-3.5 3.5 -6 .5"/><path d="M34 34.5 q3.5 3.5 6 .5"/>
+      </g>
+      <ellipse cx="34" cy="32" rx="3.2" ry="2.4" fill="#4F6D7A"/>
+      <g>
+        <path d="M20 18 L18.5 4 L32 13.5 Z" fill="#FFFFFF"/>
+        <path d="M21 15 L20 8 L28.5 13 Z" fill="#F3C9CE"/>
+        <path d="M48 18 L49.5 4 L36 13.5 Z" fill="#FFFFFF"/>
+        <path d="M47 15 L48 8 L39.5 13 Z" fill="#F3C9CE"/>
+      </g>
+      <g fill="#FFFFFF" stroke="#DCEAF3" stroke-width="1">
+        <circle cx="34" cy="4" r="4"/><circle cx="41" cy="6" r="2.6"/><circle cx="62" cy="34" r="3.2"/>
+      </g>
     </svg>
   </div>
   <div class="bath-bubbles" id="bathBubbles"></div>
@@ -280,7 +318,7 @@
   <div class="hero-inner">
     <div class="hero-text">
       <span class="hero-badge"><span id="yearsBadge">10</span>+ years of loving care</span>
-      <h1>Lyne Pet Grooming Services</h1>
+      <h1><span class="hero-title-main">Lyne</span><span class="hero-title-sub">Pet Grooming Services</span></h1>
       <p class="hero-tagline">Gentle, professional grooming for your furkids — cared for like family, one groom at a time.</p>
       <div class="hero-cta">
         <a href="tel:+639652560809" class="btn btn-primary"><i class="fas fa-phone"></i> Call Now</a>
