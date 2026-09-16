@@ -1,135 +1,376 @@
 <!DOCTYPE html>
- 
-<html lang="en"><head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lyne Pet Grooming Services</title>
 <link rel="icon" href="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/logo%20icon.png?raw=true">
 <meta name="description" content="Professional pet grooming services by Lyne Pet Grooming Services.">
-<meta name="theme-color" content="#C7E7F8"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Lyne Pet Grooming Services</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#C7E7F8">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
+  :root{
+    /* original palette, unchanged — only extended with shades of the same hues */
+    --bg:#F8FCFE;
+    --surface:#FFFFFF;
+    --surface-alt:#EAF6FC;
+    --brand:#C7E7F8;
+    --brand-border:#A9D8EF;
+    --heading:#5A8FA8;
+    --text-muted:#4F6D7A;
+    --text:#444444;
+    --accent-deep:#3E6E85;
+    --accent-deep-hover:#33596D;
+    --shadow-sm:0 6px 18px rgba(79,109,122,.12);
+    --shadow-md:0 14px 34px rgba(79,109,122,.18);
+    --radius:15px;
+    --radius-lg:24px;
+    --font-display:'Fredoka',sans-serif;
+    --font-body:'Poppins',sans-serif;
+    --nav-h:72px;
+  }
 
-/* Apply 1.5 line spacing to the entire web page */
-body {
-  line-height: 1.5;
-}
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
-body{background:#F8FCFE;color:#444}
-header,footer{background:#C7E7F8;text-align:center;padding:25px;color:#4F6D7A}
-header img{width:4in;height:4in;object-fit:cover;display:block;margin:0 auto;border-radius:50%;border:8px solid #fff;box-shadow:0 8px 25px rgba(0,0,0,.15);background:#fff}
-header{background:#C7E7F8;text-align:center;padding:40px 25px;color:#4F6D7A}
-section{padding:50px 10%}
-h2{text-align:center;color:#5A8FA8;margin-bottom:25px}
-.image-placeholder{height:350px;border:3px dashed #A9D8EF;border-radius:15px;background:#fff;display:flex;align-items:center;justify-content:center}
-.rate-box,.about{max-width:800px;margin:auto;background:#fff;border-radius:15px;padding:25px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
-table{width:100%;border-collapse:collapse}td{padding:15px;border-bottom:1px solid #E8F3F9}
-.contact{display:flex;flex-wrap:wrap;justify-content:center;gap:15px}
-.contact a{text-decoration:none;color:#4F6D7A;background:#fff;padding:14px 20px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,.08)}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6}
+  img{max-width:100%;display:block}
+  a{color:inherit}
+  h1,h2{font-family:var(--font-display)}
 
-.reveal{
-opacity:0;
-transform:translateY(50px);
-transition:opacity .7s ease,transform .7s ease;
-}
-.reveal.active{
-opacity:1;
-transform:translateY(0);
-}
+  .skip-link{position:absolute;left:-999px;top:auto;background:var(--accent-deep);color:#fff;padding:12px 18px;border-radius:0 0 10px 0;z-index:1000}
+  .skip-link:focus{left:0;top:0}
 
-section img{
-display:block;
-width:100%;
-height:auto;
-max-height:none !important;
-object-fit:contain !important;
-border-radius:15px;
-box-shadow:0 10px 30px rgba(0,0,0,.08);
-}
-.reveal{
-will-change:opacity,transform;
-overflow:hidden;
-}
-</style></head><body>
-<header><img src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/logo%20icon.png?raw=true"></header>
+  :focus-visible{outline:3px solid var(--accent-deep);outline-offset:2px}
 
-<section class="reveal"><img
-        src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/opening%20hours.jpg?raw=true "
-        alt="Opening Hours"
-        ></section>
+  /* ---------- nav ---------- */
+  .site-nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);background:#fff;z-index:500;transition:box-shadow .3s ease}
+  .site-nav.scrolled{box-shadow:var(--shadow-sm)}
+  .nav-inner{max-width:1100px;margin:0 auto;height:100%;display:flex;align-items:center;justify-content:space-between;padding:0 6%}
+  .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--font-display);font-weight:600;color:var(--heading);font-size:1.05rem}
+  .brand-mark{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid var(--brand-border)}
+  .nav-links{display:flex;gap:6px;list-style:none}
+  .nav-links a{display:block;padding:10px 14px;border-radius:999px;text-decoration:none;font-weight:500;font-size:.92rem;color:var(--text-muted);transition:background .25s ease,color .25s ease}
+  .nav-links a:hover,.nav-links a.active{background:var(--surface-alt);color:var(--accent-deep)}
+  .nav-toggle{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;background:none;border:none;cursor:pointer}
+  .nav-toggle span{display:block;height:2px;width:100%;background:var(--heading);border-radius:2px;transition:transform .3s ease,opacity .3s ease}
+  .nav-toggle.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav-toggle.open span:nth-child(2){opacity:0}
+  .nav-toggle.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
- <section class="reveal"><img
-        src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/contact%20number%20and%20address.jpg?raw=true"
-        alt="Contact number and Address"
-        ></section>
+  @media(max-width:820px){
+    .nav-toggle{display:flex}
+    .nav-links{position:fixed;top:var(--nav-h);left:0;right:0;flex-direction:column;background:#fff;padding:10px 6% 18px;box-shadow:var(--shadow-sm);transform:translateY(-8px);opacity:0;pointer-events:none;transition:transform .25s ease,opacity .25s ease}
+    .nav-links.open{transform:translateY(0);opacity:1;pointer-events:auto}
+    .nav-links a{padding:12px 14px}
+  }
 
-<section class="reveal"><h2>Our Grooming Rates</h2></section>
+  /* ---------- hero ---------- */
+  .hero{position:relative;overflow:hidden;background:var(--brand);padding:calc(var(--nav-h) + 56px) 6% 70px}
+  .hero-decor{position:absolute;inset:0;pointer-events:none;z-index:0}
+  .hero-decor svg{width:100%;height:100%}
+  .hero-inner{position:relative;z-index:1;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:50px}
+  .hero-text{max-width:520px}
+  .hero-badge{display:inline-block;background:rgba(255,255,255,.75);color:var(--accent-deep);font-weight:600;font-size:.85rem;padding:8px 16px;border-radius:999px;margin-bottom:18px;opacity:0;animation:riseIn .6s ease forwards}
+  .hero-text h1{font-size:2.5rem;color:var(--text-muted);font-weight:700;line-height:1.15;opacity:0;animation:riseIn .6s ease .12s forwards}
+  .hero-tagline{margin-top:16px;font-size:1.05rem;color:var(--text-muted);opacity:0;animation:riseIn .6s ease .24s forwards}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;margin-top:30px;opacity:0;animation:riseIn .6s ease .36s forwards}
+  .hero-media{position:relative;flex-shrink:0;opacity:0;animation:heroMediaIn .7s ease .2s forwards}
+  .hero-ring{position:absolute;inset:-16px;border:2px dashed var(--brand-border);border-radius:50%}
+  .hero-logo{position:relative;width:230px;height:230px;object-fit:cover;border-radius:50%;border:8px solid #fff;box-shadow:var(--shadow-md);background:#fff}
 
-<section class="reveal"><img
-        src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/services%20rate.jpg?raw=true "
-        alt="Rate Services"
-        ></section>
+  @keyframes riseIn{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes heroMediaIn{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:scale(1)}}
 
-<section class="reveal"><h2>Contact & Location</h2><div class="contact">
+  @media(max-width:820px){
+    .hero-inner{flex-direction:column;text-align:center}
+    .hero-text{max-width:100%}
+    .hero-cta{justify-content:center}
+    .hero-logo{width:170px;height:170px}
+  }
 
-    <a href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank">
-        <i class="fab fa-facebook"></i> Facebook
+  /* ---------- buttons ---------- */
+  .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;border:2px solid transparent;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+  .btn-primary{background:var(--accent-deep);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--accent-deep-hover);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+  .btn-secondary{background:#fff;color:var(--accent-deep);border-color:var(--brand-border)}
+  .btn-secondary:hover{background:var(--surface-alt);transform:translateY(-3px)}
+  .btn-sm{padding:10px 18px;font-size:.85rem}
+
+  /* ---------- sections ---------- */
+  .band{padding:64px 6%}
+  .band.alt{background:var(--surface-alt)}
+  .section-inner{max-width:820px;margin:0 auto}
+  h2{display:flex;align-items:center;justify-content:center;gap:10px;color:var(--heading);font-size:1.65rem;font-weight:600;text-align:center;margin-bottom:32px}
+  h2 svg{flex-shrink:0}
+
+  .media-card{position:relative;max-width:640px;margin:0 auto;border-radius:var(--radius-lg);overflow:hidden;box-shadow:var(--shadow-md);cursor:zoom-in;background:#fff;transition:transform .3s ease,box-shadow .3s ease}
+  .media-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-md),0 0 0 3px var(--brand-border)}
+  .media-card img{width:100%;height:auto}
+  .zoom-hint{position:absolute;bottom:12px;right:12px;background:rgba(255,255,255,.92);color:var(--text-muted);font-size:.72rem;font-weight:500;padding:6px 12px;border-radius:999px;display:flex;align-items:center;gap:6px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+
+  .contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;margin-top:34px}
+  .contact-card{display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--text-muted);background:#fff;padding:24px 14px;border-radius:var(--radius);box-shadow:var(--shadow-sm);font-weight:500;font-size:.92rem;transition:transform .25s ease,box-shadow .25s ease}
+  .contact-card i{font-size:1.5rem;color:var(--heading)}
+  .contact-card:hover{transform:translateY(-6px);box-shadow:var(--shadow-md)}
+
+  .location-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:26px}
+
+  .about-card{max-width:760px;margin:0 auto;background:#fff;border-radius:var(--radius-lg);padding:40px 36px;box-shadow:var(--shadow-md);border-left:4px solid var(--brand-border)}
+  .about-card p{margin-bottom:18px;text-align:left}
+  .about-card p:last-child{margin-bottom:0}
+  .about-card .signature{font-style:italic;color:var(--heading);text-align:center;margin-top:26px;font-size:1.05rem}
+
+  /* ---------- footer ---------- */
+  footer{background:var(--brand);color:var(--text-muted);text-align:center;padding:44px 6% 34px}
+  .footer-mark{width:58px;height:58px;border-radius:50%;object-fit:cover;border:3px solid #fff;margin:0 auto 14px;box-shadow:var(--shadow-sm)}
+  .footer-name{font-family:var(--font-display);font-weight:600;font-size:1.1rem;margin-bottom:16px}
+  .footer-social{display:flex;justify-content:center;gap:14px;margin-bottom:18px}
+  .footer-social a{width:42px;height:42px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.6);border-radius:50%;transition:transform .25s ease,background .25s ease}
+  .footer-social a:hover{transform:translateY(-4px);background:#fff}
+  .copyright{font-size:.82rem;opacity:.85}
+
+  /* ---------- floating call button ---------- */
+  .floating-call{position:fixed;right:22px;bottom:22px;z-index:400;display:flex;align-items:center;gap:10px;background:var(--accent-deep);color:#fff;padding:16px;border-radius:999px;text-decoration:none;box-shadow:var(--shadow-md);transition:padding .3s ease,transform .25s ease,background .25s ease}
+  .floating-call i{font-size:1.2rem}
+  .floating-call-label{max-width:0;overflow:hidden;white-space:nowrap;font-weight:600;font-size:.9rem;transition:max-width .3s ease}
+  .floating-call:hover{background:var(--accent-deep-hover);transform:translateY(-3px)}
+  .floating-call:hover .floating-call-label{max-width:120px}
+
+  /* ---------- lightbox ---------- */
+  .lightbox{position:fixed;inset:0;background:rgba(20,32,38,.88);display:flex;align-items:center;justify-content:center;padding:5%;z-index:900;opacity:0;pointer-events:none;transition:opacity .3s ease}
+  .lightbox.open{opacity:1;pointer-events:auto}
+  .lightbox img{max-width:100%;max-height:90vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.4)}
+  .lightbox-close{position:absolute;top:24px;right:28px;background:rgba(255,255,255,.15);color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:1.5rem;cursor:pointer;transition:background .25s ease}
+  .lightbox-close:hover{background:rgba(255,255,255,.3)}
+
+  @media(prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .hero-badge,.hero-text h1,.hero-tagline,.hero-cta,.hero-media{animation:none;opacity:1}
+    *{transition-duration:.01ms!important}
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<nav class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#home" class="brand">
+      <img class="brand-mark" src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/logo%20icon.png?raw=true" alt="">
+      <span>Lyne Pet Grooming</span>
     </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#hours">Hours</a></li>
+      <li><a href="#rates">Rates</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#location">Location</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <a href="https://www.instagram.com/lynepetgroomingservices?igsh=NzQ5NDh2b24zZmt0" target="_blank">
-        <i class="fab fa-instagram"></i> Instagram
-    </a>
+<header class="hero" id="home">
+  <div class="hero-decor" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern id="pawPattern" width="90" height="90" patternUnits="userSpaceOnUse" patternTransform="rotate(12)">
+          <g fill="#FFFFFF" opacity="0.45">
+            <ellipse cx="45" cy="57" rx="15" ry="11"></ellipse>
+            <ellipse cx="29" cy="36" rx="6" ry="8"></ellipse>
+            <ellipse cx="45" cy="28" rx="6" ry="8"></ellipse>
+            <ellipse cx="61" cy="36" rx="6" ry="8"></ellipse>
+          </g>
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#pawPattern)"></rect>
+    </svg>
+  </div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <span class="hero-badge"><span id="yearsBadge">10</span>+ years of loving care</span>
+      <h1>Lyne Pet Grooming Services</h1>
+      <p class="hero-tagline">Gentle, professional grooming for your furkids — cared for like family, one groom at a time.</p>
+      <div class="hero-cta">
+        <a href="tel:+639652560809" class="btn btn-primary"><i class="fas fa-phone"></i> Call Now</a>
+        <a href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank" class="btn btn-secondary"><i class="fab fa-facebook"></i> Message Us</a>
+      </div>
+    </div>
+    <div class="hero-media">
+      <div class="hero-ring" aria-hidden="true"></div>
+      <img class="hero-logo" src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/logo%20icon.png?raw=true" alt="Lyne Pet Grooming Services logo">
+    </div>
+  </div>
+</header>
 
-    <a href="https://share.google/TuXhBmaxK39kTYIys" target="_blank">
-        <i class="fab fa-google"></i> Google Business
-    </a>
+<main id="main">
 
-    <a href="https://www.google.com/maps/place/Lyne+Pet+Grooming+Services/@13.9392056,120.7298512,15z/data=!4m15!1m8!3m7!1s0x33bda36e1c89119d:0x553442b92202794e!2sLyne+Pet+Grooming+Services!8m2!3d13.9392395!4d120.7297996!10e5!16s%2Fg%2F11md_1bszw!3m5!1s0x33bda36e1c89119d:0x553442b92202794e!8m2!3d13.9392395!4d120.7297996!16s%2Fg%2F11md_1bszw?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank">
-        <i class="fas fa-location-dot"></i> Google Maps
-    </a>
+  <section id="hours" class="band">
+    <div class="section-inner">
+      <h2>
+        <svg width="22" height="22" viewBox="0 0 90 90" aria-hidden="true"><g fill="#5A8FA8"><ellipse cx="45" cy="57" rx="15" ry="11"/><ellipse cx="29" cy="36" rx="6" ry="8"/><ellipse cx="45" cy="28" rx="6" ry="8"/><ellipse cx="61" cy="36" rx="6" ry="8"/></g></svg>
+        Opening Hours
+      </h2>
+      <div class="media-card zoomable" data-full="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/opening%20hours.jpg?raw=true">
+        <img src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/opening%20hours.jpg?raw=true" alt="Opening Hours" loading="lazy">
+        <span class="zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Tap to enlarge</span>
+      </div>
+    </div>
+  </section>
 
-    <a href="https://ul.waze.com/ul?ll=13.93926900%2C120.72981100&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank">
-        <i class="fas fa-route"></i> Waze
-    </a>
+  <section id="rates" class="band alt">
+    <div class="section-inner">
+      <h2>
+        <svg width="22" height="22" viewBox="0 0 90 90" aria-hidden="true"><g fill="#5A8FA8"><ellipse cx="45" cy="57" rx="15" ry="11"/><ellipse cx="29" cy="36" rx="6" ry="8"/><ellipse cx="45" cy="28" rx="6" ry="8"/><ellipse cx="61" cy="36" rx="6" ry="8"/></g></svg>
+        Our Grooming Rates
+      </h2>
+      <div class="media-card zoomable" data-full="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/services%20rate.jpg?raw=true">
+        <img src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/services%20rate.jpg?raw=true" alt="Rate Services" loading="lazy">
+        <span class="zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Tap to enlarge</span>
+      </div>
+    </div>
+  </section>
 
-    <a href="tel:+639652560809" target="_blank">
-        <i class="fas fa-phone"></i> Mobile
-    </a>
+  <section id="contact" class="band">
+    <div class="section-inner">
+      <h2>
+        <svg width="22" height="22" viewBox="0 0 90 90" aria-hidden="true"><g fill="#5A8FA8"><ellipse cx="45" cy="57" rx="15" ry="11"/><ellipse cx="29" cy="36" rx="6" ry="8"/><ellipse cx="45" cy="28" rx="6" ry="8"/><ellipse cx="61" cy="36" rx="6" ry="8"/></g></svg>
+        Contact & Location
+      </h2>
+      <div class="media-card zoomable" data-full="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/contact%20number%20and%20address.jpg?raw=true">
+        <img src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/contact%20number%20and%20address.jpg?raw=true" alt="Contact number and Address" loading="lazy">
+        <span class="zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Tap to enlarge</span>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-card" href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank"><i class="fab fa-facebook"></i><span>Facebook</span></a>
+        <a class="contact-card" href="https://www.instagram.com/lynepetgroomingservices?igsh=NzQ5NDh2b24zZmt0" target="_blank"><i class="fab fa-instagram"></i><span>Instagram</span></a>
+        <a class="contact-card" href="https://share.google/TuXhBmaxK39kTYIys" target="_blank"><i class="fab fa-google"></i><span>Google Business</span></a>
+        <a class="contact-card" href="https://www.google.com/maps/place/Lyne+Pet+Grooming+Services/@13.9392056,120.7298512,15z/data=!4m15!1m8!3m7!1s0x33bda36e1c89119d:0x553442b92202794e!2sLyne+Pet+Grooming+Services!8m2!3d13.9392395!4d120.7297996!10e5!16s%2Fg%2F11md_1bszw!3m5!1s0x33bda36e1c89119d:0x553442b92202794e!8m2!3d13.9392395!4d120.7297996!16s%2Fg%2F11md_1bszw?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank"><i class="fas fa-location-dot"></i><span>Google Maps</span></a>
+        <a class="contact-card" href="https://ul.waze.com/ul?ll=13.93926900%2C120.72981100&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank"><i class="fas fa-route"></i><span>Waze</span></a>
+        <a class="contact-card" href="tel:+639652560809"><i class="fas fa-phone"></i><span>Mobile</span></a>
+      </div>
+    </div>
+  </section>
 
-</div></section>
-<section class="reveal"><h2>Location</h2><img
-        src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/location%20map.jpg?raw=true "
-        alt="Location Map"
-        >
-</section>
+  <section id="location" class="band alt">
+    <div class="section-inner">
+      <h2>
+        <svg width="22" height="22" viewBox="0 0 90 90" aria-hidden="true"><g fill="#5A8FA8"><ellipse cx="45" cy="57" rx="15" ry="11"/><ellipse cx="29" cy="36" rx="6" ry="8"/><ellipse cx="45" cy="28" rx="6" ry="8"/><ellipse cx="61" cy="36" rx="6" ry="8"/></g></svg>
+        Find Us
+      </h2>
+      <div class="media-card zoomable" data-full="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/location%20map.jpg?raw=true">
+        <img src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/location%20map.jpg?raw=true" alt="Location Map" loading="lazy">
+        <span class="zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Tap to enlarge</span>
+      </div>
+      <div class="location-actions">
+        <a href="https://www.google.com/maps/place/Lyne+Pet+Grooming+Services/@13.9392056,120.7298512,15z/data=!4m15!1m8!3m7!1s0x33bda36e1c89119d:0x553442b92202794e!2sLyne+Pet+Grooming+Services!8m2!3d13.9392395!4d120.7297996!10e5!16s%2Fg%2F11md_1bszw!3m5!1s0x33bda36e1c89119d:0x553442b92202794e!8m2!3d13.9392395!4d120.7297996!16s%2Fg%2F11md_1bszw?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-secondary btn-sm"><i class="fas fa-location-dot"></i> Directions via Maps</a>
+        <a href="https://ul.waze.com/ul?ll=13.93926900%2C120.72981100&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" class="btn btn-secondary btn-sm"><i class="fas fa-route"></i> Directions via Waze</a>
+      </div>
+    </div>
+  </section>
 
-<section class="reveal"><h2>About Us</h2><div class="about">
+  <section id="about" class="band">
+    <div class="section-inner">
+      <h2>
+        <svg width="22" height="22" viewBox="0 0 90 90" aria-hidden="true"><g fill="#5A8FA8"><ellipse cx="45" cy="57" rx="15" ry="11"/><ellipse cx="29" cy="36" rx="6" ry="8"/><ellipse cx="45" cy="28" rx="6" ry="8"/><ellipse cx="61" cy="36" rx="6" ry="8"/></g></svg>
+        About Us
+      </h2>
+      <div class="about-card">
+        <p>Once, there was a loving father who wanted to provide for his family and was tempted to leave his country of birth. The very reason was, that he was about to start from scratch, after deciding to leave the decade-long employment of his comfort zone. Pet grooming was the stepping stone until he was able to get back on his own feet, to practice his profession again, as a veterinarian, but then at those times, were his own. Pet grooming wasn't considered a menial job but a purpose that only a few will get.</p>
+        <p><b>Lyne Pet Grooming Services</b>, formerly known as <b>PetHub</b>, was established by our loving late Padre de Pamilya, <b>Dr. Hilbart S. Pizarro</b> aka <b>Doc Bong</b>.</p>
+        <p>We changed the business's name for legal purposes because it was named after our late father, husband, and brother, who is now deceased.</p>
+        <p>He started, supported by his wife, with only a DIY wooden table and a store-bought pair of scissors in 2016, full of hope, giving our effort to give lovely pets a refreshing groom. Until innovation came, clippers and blades joined the service. There's no guarantee what the future may hold, but pet grooming puts food on the table.</p>
+        <p>We made social media accounts for clients who are looking for pet grooming services online, using these apps as their search engine.</p>
+        <p>Thank you for making it this far and choosing us, lovely pet owners.</p>
+        <p class="signature">God bless you all❤️.</p>
+      </div>
+    </div>
+  </section>
 
-<p style="text-align: justify; text-indent: 40px;">Once, there was a loving father who wanted to provide for his family and was tempted to leave his country of birth. The very reason was, that he was about to start from scratch, after deciding to leave the decade-long employment of his comfort zone. Pet grooming was the stepping stone until he was able to get back on his own feet, to practice his profession again, as a veterinarian, but then at those times, were his own. Pet grooming wasn't considered a menial job but a purpose that only a few will get.
+</main>
 
+<footer>
+  <img class="footer-mark" src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/logo%20icon.png?raw=true" alt="">
+  <div class="footer-name">Lyne Pet Grooming Services</div>
+  <div class="footer-social">
+    <a href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+    <a href="https://www.instagram.com/lynepetgroomingservices?igsh=NzQ5NDh2b24zZmt0" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    <a href="tel:+639652560809" aria-label="Call"><i class="fas fa-phone"></i></a>
+  </div>
+  <p class="copyright">© 2026 Lyne Pet Grooming Services</p>
+</footer>
 
-<b>Lyne Pet Grooming Services</b>, formerly known as <b>PetHub</b>, was established by our loving late Padre de Pamilya, <b>Dr. Hilbart S. Pizarro</b> aka </b>Doc Bong</b>.
+<a href="tel:+639652560809" class="floating-call" aria-label="Call Lyne Pet Grooming Services">
+  <i class="fas fa-phone"></i>
+  <span class="floating-call-label">Call Now</span>
+</a>
 
-We changed the business's name for legal purposes because it was named after our late father, husband, and brother, who is now deceased.
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose" aria-label="Close image">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+</div>
 
-He started, supported by his wife, with only a DIY wooden table and a store-bought pair of scissors in 2016, full of hope, giving our effort to give lovely pets a refreshing groom. Until innovation came, clippers and blades joined the service. There's no guarantee what the future may hold, but pet grooming puts food on the table.
-
-We made social media accounts for clients who are looking for pet grooming services online, using these apps as their search engine.
-
-Thank you for making it this far and choosing us, lovely pet owners.
-
-God bless you all❤️.</p></div></section>
-<footer>© 2026 Lyne Pet Grooming Services</footer>
 <script>
-const items=document.querySelectorAll('.reveal');
-const observer=new IntersectionObserver((entries)=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add('active');
-}else{
-entry.target.classList.remove('active');
-}
-});
-},{threshold:0.2});
-items.forEach(el=>observer.observe(el));
+  // years-of-service badge
+  document.getElementById('yearsBadge').textContent = new Date().getFullYear() - 2016;
+
+  // sticky nav shadow on scroll
+  const nav = document.getElementById('siteNav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // mobile menu toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open', open);
+    navToggle.setAttribute('aria-expanded', open);
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', false);
+    });
+  });
+
+  // scroll-spy: highlight the nav link for the section in view
+  const sections = document.querySelectorAll('main section[id], .hero[id]');
+  const navAnchors = navLinks.querySelectorAll('a');
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navAnchors.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + entry.target.id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  sections.forEach(s => spy.observe(s));
+
+  // scroll-margin so anchored sections don't hide under the fixed nav
+  sections.forEach(s => s.style.scrollMarginTop = 'var(--nav-h)');
+
+  // lightbox for content images
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  document.querySelectorAll('.zoomable').forEach(card => {
+    card.addEventListener('click', () => {
+      lightboxImg.src = card.dataset.full;
+      lightboxImg.alt = card.querySelector('img').alt;
+      lightbox.classList.add('open');
+    });
+  });
+  function closeLightbox(){ lightbox.classList.remove('open'); lightboxImg.src=''; }
+  document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
 </script>
-</body></html> }
+
+</body>
+</html>
