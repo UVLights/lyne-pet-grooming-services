@@ -144,16 +144,102 @@
   .lightbox-close{position:absolute;top:24px;right:28px;background:rgba(255,255,255,.15);color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:1.5rem;cursor:pointer;transition:background .25s ease}
   .lightbox-close:hover{background:rgba(255,255,255,.3)}
 
+  /* ---------- bath scene: rising water + bubbles ---------- */
+  .bath-scene{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:layout paint}
+
+  .bath-water{
+    position:absolute;left:0;right:0;bottom:0;height:100%;
+    transform:translate3d(0,92%,0);
+    will-change:transform;
+    background:linear-gradient(180deg,rgba(199,231,248,.58) 0%,rgba(169,216,239,.62) 40%,rgba(137,196,227,.72) 100%);
+  }
+  .bath-water::after{ /* soft light streaks under the surface */
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(255,255,255,.45) 0,rgba(255,255,255,0) 90px);
+  }
+
+  .bath-wave{
+    position:absolute;bottom:100%;left:0;width:200%;height:26px;
+    background-repeat:repeat-x;background-size:50% 100%;
+    will-change:transform;
+  }
+  .bath-wave.w1{
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28' preserveAspectRatio='none'%3E%3Cpath d='M0,15 Q30,2 60,15 T120,15 V28 H0 Z' fill='%23A9D8EF' fill-opacity='0.75'/%3E%3C/svg%3E");
+    animation:waveSlide 9s linear infinite;
+  }
+  .bath-wave.w2{
+    height:20px;opacity:.8;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 28' preserveAspectRatio='none'%3E%3Cpath d='M0,15 Q30,26 60,15 T120,15 V28 H0 Z' fill='%23FFFFFF' fill-opacity='0.7'/%3E%3C/svg%3E");
+    animation:waveSlide 6s linear infinite reverse;
+  }
+  @keyframes waveSlide{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+
+  /* foam clinging to the surface */
+  .bath-foam{position:absolute;bottom:100%;left:0;right:0;height:34px;overflow:hidden}
+  .bath-foam span{
+    position:absolute;bottom:-6px;border-radius:50%;
+    background:radial-gradient(circle at 32% 30%,#fff,rgba(255,255,255,.55));
+    box-shadow:0 0 0 1px rgba(255,255,255,.6);
+    animation:foamBob 4s ease-in-out infinite;
+  }
+  @keyframes foamBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+
+  /* rubber duck riding the surface */
+  .bath-duck{position:absolute;bottom:100%;left:8%;width:54px;margin-bottom:-6px;animation:duckBob 4.5s ease-in-out infinite;transform-origin:50% 90%}
+  @keyframes duckBob{0%,100%{transform:translateY(0) rotate(-5deg)}50%{transform:translateY(-8px) rotate(5deg)}}
+  @media(max-width:600px){.bath-duck{width:40px;left:6%}}
+
+  /* bubbles */
+  .bath-bubbles{position:absolute;inset:0;overflow:hidden}
+  .bubble{
+    position:absolute;bottom:-12vh;border-radius:50%;
+    background:radial-gradient(circle at 30% 28%,rgba(255,255,255,.95),rgba(255,255,255,.35) 45%,rgba(169,216,239,.28) 70%,rgba(169,216,239,.1));
+    box-shadow:inset 0 0 6px rgba(255,255,255,.8),0 0 8px rgba(169,216,239,.35);
+    opacity:0;
+    animation-name:bubbleRise;animation-timing-function:linear;animation-iteration-count:infinite;
+    will-change:transform,opacity;
+  }
+  @keyframes bubbleRise{
+    0%{transform:translate3d(0,0,0) scale(.55);opacity:0}
+    8%{opacity:.9}
+    50%{transform:translate3d(var(--drift,14px),-60vh,0) scale(1)}
+    85%{opacity:.75}
+    100%{transform:translate3d(calc(var(--drift,14px) * -1),-125vh,0) scale(1.08);opacity:0}
+  }
+
+  /* let the water show through the page */
+  header.hero,main,footer{position:relative;z-index:1}
+  .band{background:rgba(255,255,255,.74)}
+  .band.alt{background:rgba(234,246,252,.78)}
+
   @media(prefers-reduced-motion:reduce){
     html{scroll-behavior:auto}
     .hero-badge,.hero-text h1,.hero-tagline,.hero-cta,.hero-media{animation:none;opacity:1}
     *{transition-duration:.01ms!important}
+    .bath-bubbles{display:none}
+    .bath-wave,.bath-foam span,.bath-duck{animation:none}
   }
 </style>
 </head>
 <body>
 
 <a href="#main" class="skip-link">Skip to content</a>
+
+<div class="bath-scene" id="bathScene" aria-hidden="true">
+  <div class="bath-water" id="bathWater">
+    <div class="bath-wave w1"></div>
+    <div class="bath-wave w2"></div>
+    <div class="bath-foam" id="bathFoam"></div>
+    <svg class="bath-duck" viewBox="0 0 64 56" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="30" cy="40" rx="24" ry="13" fill="#FFD466"/>
+      <path d="M30 27c0-9 7-16 16-16s16 7 16 16-7 15-16 15H30z" fill="#FFE08A" opacity=".9"/>
+      <circle cx="42" cy="18" r="13" fill="#FFD466"/>
+      <circle cx="46" cy="15" r="2.4" fill="#4F6D7A"/>
+      <path d="M55 19l8 3-8 3z" fill="#F5A25D"/>
+    </svg>
+  </div>
+  <div class="bath-bubbles" id="bathBubbles"></div>
+</div>
 
 <nav class="site-nav" id="siteNav">
   <div class="nav-inner">
@@ -370,6 +456,68 @@
   document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
   lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+  /* ---------- bath scene ---------- */
+  (function () {
+    const water   = document.getElementById('bathWater');
+    const bubbles = document.getElementById('bathBubbles');
+    const foam    = document.getElementById('bathFoam');
+    if (!water) return;
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const rand = (min, max) => Math.random() * (max - min) + min;
+
+    // ---- water level follows scroll progress (empty tub -> full tub) ----
+    const START = 92;  // % pushed down at the top of the page
+    const END   = 4;   // % pushed down at the bottom of the page
+    let ticking = false;
+
+    function setLevel() {
+      const doc = document.documentElement;
+      const max = Math.max(1, doc.scrollHeight - window.innerHeight);
+      const p   = Math.min(1, Math.max(0, (window.pageYOffset || doc.scrollTop) / max));
+      const eased = p * p * (3 - 2 * p); // smooth in/out
+      water.style.transform = 'translate3d(0,' + (START - (START - END) * eased).toFixed(2) + '%,0)';
+      ticking = false;
+    }
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(setLevel); }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    window.addEventListener('orientationchange', onScroll, { passive: true });
+    window.addEventListener('load', setLevel);
+    setLevel();
+
+    // ---- foam blobs along the surface ----
+    if (foam) {
+      let markup = '';
+      for (let i = 0; i < 16; i++) {
+        const size = rand(14, 34);
+        markup += '<span style="left:' + rand(-2, 99).toFixed(2) + '%;width:' + size.toFixed(0) +
+                  'px;height:' + size.toFixed(0) + 'px;animation-delay:-' + rand(0, 4).toFixed(2) + 's"></span>';
+      }
+      foam.innerHTML = markup;
+    }
+
+    // ---- rising bubbles ----
+    if (bubbles && !reduced) {
+      const count = window.innerWidth < 600 ? 14 : 26;
+      const frag = document.createDocumentFragment();
+      for (let i = 0; i < count; i++) {
+        const b = document.createElement('div');
+        const size = rand(7, 26);
+        b.className = 'bubble';
+        b.style.left = rand(0, 98).toFixed(2) + '%';
+        b.style.width = b.style.height = size.toFixed(1) + 'px';
+        b.style.setProperty('--drift', rand(-26, 26).toFixed(1) + 'px');
+        b.style.animationDuration = rand(9, 20).toFixed(1) + 's';
+        b.style.animationDelay = '-' + rand(0, 18).toFixed(1) + 's';
+        frag.appendChild(b);
+      }
+      bubbles.appendChild(frag);
+    }
+  })();
 </script>
 
 </body>
