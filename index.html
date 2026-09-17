@@ -121,11 +121,20 @@
 
   /* ---------- buttons ---------- */
   .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;border:2px solid transparent;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
-  .btn-primary{background:var(--accent-deep);color:#fff;box-shadow:var(--shadow-sm)}
-  .btn-primary:hover{background:var(--accent-deep-hover);transform:translateY(-3px);box-shadow:var(--shadow-md)}
+  .btn-primary{background:var(--accent-deep);color:#fff;box-shadow:var(--shadow-sm);animation:callThrob 1.7s ease-in-out infinite}
+  .btn-primary:hover{background:var(--accent-deep-hover);transform:translateY(-3px);box-shadow:var(--shadow-md);animation-play-state:paused}
   .btn-secondary{background:#fff;color:var(--accent-deep);border-color:var(--brand-border)}
   .btn-secondary:hover{background:var(--surface-alt);transform:translateY(-3px)}
   .btn-sm{padding:10px 18px;font-size:.85rem}
+
+  /* ---------- throbbing call-to-action pulse (hero + floating call buttons) ---------- */
+  @keyframes callThrob{
+    0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(62,110,133,.45)}
+    50%{transform:scale(1.07);box-shadow:0 0 0 14px rgba(62,110,133,0)}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .btn-primary,.floating-call{animation:none}
+  }
 
   /* ---------- sections ---------- */
   .band{padding:64px 6%}
@@ -173,10 +182,10 @@
   .copyright{font-size:.82rem;opacity:.85}
 
   /* ---------- floating call button ---------- */
-  .floating-call{position:fixed;right:22px;bottom:22px;z-index:400;display:flex;align-items:center;gap:10px;background:var(--accent-deep);color:#fff;padding:16px;border-radius:999px;text-decoration:none;box-shadow:var(--shadow-md);transition:padding .3s ease,transform .25s ease,background .25s ease}
+  .floating-call{position:fixed;right:22px;bottom:22px;z-index:400;display:flex;align-items:center;gap:10px;background:var(--accent-deep);color:#fff;padding:16px;border-radius:999px;text-decoration:none;box-shadow:var(--shadow-md);transition:padding .3s ease,transform .25s ease,background .25s ease;animation:callThrob 1.7s ease-in-out infinite}
   .floating-call i{font-size:1.2rem}
   .floating-call-label{max-width:0;overflow:hidden;white-space:nowrap;font-weight:600;font-size:.9rem;transition:max-width .3s ease}
-  .floating-call:hover{background:var(--accent-deep-hover);transform:translateY(-3px)}
+  .floating-call:hover{background:var(--accent-deep-hover);transform:translateY(-3px);animation-play-state:paused}
   .floating-call:hover .floating-call-label{max-width:120px}
 
   /* ---------- lightbox ---------- */
@@ -522,7 +531,8 @@
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('in-view');
-          revealObserver.unobserve(entry.target);
+        } else {
+          entry.target.classList.remove('in-view');
         }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
