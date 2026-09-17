@@ -133,7 +133,8 @@
     50%{transform:scale(1.07);box-shadow:0 0 0 14px rgba(62,110,133,0)}
   }
   @media(prefers-reduced-motion:reduce){
-    .btn-primary,.floating-call{animation:none}
+    .btn-primary,.floating-call,.tap-hint,.tap-press,.tap-hint .tap-finger{animation:none}
+    .tap-hint .tap-finger{opacity:0}
   }
 
   /* ---------- sections ---------- */
@@ -179,6 +180,27 @@
   .footer-social{display:flex;justify-content:center;gap:14px;margin-bottom:18px}
   .footer-social a{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border:1px solid var(--brand-border);border-radius:50%;transition:transform .25s ease,background .25s ease}
   .footer-social a:hover{transform:translateY(-4px);background:#fff}
+
+  /* ---------- "tap me" hint (finger image) on action links, left-side tap ---------- */
+  .tap-hint{position:relative}
+  .tap-hint.tap-press{animation:tapPress 3s ease-in-out infinite}
+  .tap-hint.tap-press:hover{animation-play-state:paused}
+  .btn-primary.tap-hint,.floating-call.tap-hint{animation:callThrob 1.7s ease-in-out infinite}
+  .tap-hint .tap-finger{position:absolute;top:50%;left:-28px;width:28px;height:30px;background-image:url('data:image/png;base64,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');background-size:contain;background-repeat:no-repeat;background-position:center;pointer-events:none;opacity:0;transform:translateY(-50%) translateX(0) rotate(-16deg);animation:fingerTapLeft 3s ease-in-out infinite;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3));z-index:5}
+  .tap-hint:hover .tap-finger{animation-play-state:paused}
+  @keyframes fingerTapLeft{
+    0%,10%{opacity:0;transform:translateY(-50%) translateX(-14px) rotate(-16deg)}
+    20%{opacity:1;transform:translateY(-50%) translateX(-14px) rotate(-16deg)}
+    34%,40%{opacity:1;transform:translateY(-50%) translateX(10px) rotate(-4deg)}
+    50%{opacity:1;transform:translateY(-50%) translateX(-14px) rotate(-16deg)}
+    58%,100%{opacity:0;transform:translateY(-50%) translateX(-14px) rotate(-16deg)}
+  }
+  @keyframes tapPress{
+    0%,32%{transform:scale(1)}
+    36%,40%{transform:scale(.92)}
+    46%{transform:scale(1.04)}
+    52%,100%{transform:scale(1)}
+  }
   .copyright{font-size:.82rem;opacity:.85}
 
   /* ---------- floating call button ---------- */
@@ -342,7 +364,10 @@
       <h1><span class="hero-title-main">Lyne</span><span class="hero-title-sub">Pet Grooming Services</span></h1>
       <p class="hero-tagline">Every refreshing groom reflects love and care — treated like a family, one groom at a time.</p>
       <div class="hero-cta">
-        <a href="tel:+639652560809" class="btn btn-primary"><i class="fas fa-phone"></i> Call Now</a>
+        <a href="tel:+639652560809" class="btn btn-primary tap-hint">
+          <i class="fas fa-phone"></i> Call Now
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
         <a href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank" class="btn btn-secondary"><i class="fab fa-facebook"></i> Message Us</a>
       </div>
     </div>
@@ -408,12 +433,30 @@
         <span class="zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Tap to enlarge</span>
       </div>
       <div class="contact-grid reveal-stagger">
-        <a class="contact-card" href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank"><i class="fab fa-facebook"></i><span>Facebook</span></a>
-        <a class="contact-card" href="https://www.instagram.com/lynepetgroomingservices?igsh=NzQ5NDh2b24zZmt0" target="_blank"><i class="fab fa-instagram"></i><span>Instagram</span></a>
-        <a class="contact-card" href="https://share.google/TuXhBmaxK39kTYIys" target="_blank"><i class="fab fa-google"></i><span>Google Business</span></a>
-        <a class="contact-card" href="https://www.google.com/maps/place/Lyne+Pet+Grooming+Services/@13.9392056,120.7298512,15z/data=!4m15!1m8!3m7!1s0x33bda36e1c89119d:0x553442b92202794e!2sLyne+Pet+Grooming+Services!8m2!3d13.9392395!4d120.7297996!10e5!16s%2Fg%2F11md_1bszw!3m5!1s0x33bda36e1c89119d:0x553442b92202794e!8m2!3d13.9392395!4d120.7297996!16s%2Fg%2F11md_1bszw?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank"><i class="fas fa-location-dot"></i><span>Google Maps</span></a>
-        <a class="contact-card" href="https://ul.waze.com/ul?ll=13.93926900%2C120.72981100&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank"><i class="fas fa-route"></i><span>Waze</span></a>
-        <a class="contact-card" href="tel:+639652560809"><i class="fas fa-phone"></i><span>Mobile</span></a>
+        <a class="contact-card tap-hint tap-press" href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank">
+          <i class="fab fa-facebook"></i><span>Facebook</span>
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
+        <a class="contact-card tap-hint tap-press" href="https://www.instagram.com/lynepetgroomingservices?igsh=NzQ5NDh2b24zZmt0" target="_blank">
+          <i class="fab fa-instagram"></i><span>Instagram</span>
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
+        <a class="contact-card tap-hint tap-press" href="https://share.google/TuXhBmaxK39kTYIys" target="_blank">
+          <i class="fab fa-google"></i><span>Google Business</span>
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
+        <a class="contact-card tap-hint tap-press" href="https://www.google.com/maps/place/Lyne+Pet+Grooming+Services/@13.9392056,120.7298512,15z/data=!4m15!1m8!3m7!1s0x33bda36e1c89119d:0x553442b92202794e!2sLyne+Pet+Grooming+Services!8m2!3d13.9392395!4d120.7297996!10e5!16s%2Fg%2F11md_1bszw!3m5!1s0x33bda36e1c89119d:0x553442b92202794e!8m2!3d13.9392395!4d120.7297996!16s%2Fg%2F11md_1bszw?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank">
+          <i class="fas fa-location-dot"></i><span>Google Maps</span>
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
+        <a class="contact-card tap-hint tap-press" href="https://ul.waze.com/ul?ll=13.93926900%2C120.72981100&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank">
+          <i class="fas fa-route"></i><span>Waze</span>
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
+        <a class="contact-card tap-hint tap-press" href="tel:+639652560809">
+          <i class="fas fa-phone"></i><span>Mobile</span>
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
       </div>
     </div>
   </section>
@@ -429,8 +472,14 @@
         <span class="zoom-hint"><i class="fas fa-magnifying-glass-plus"></i> Tap to enlarge</span>
       </div>
       <div class="location-actions">
-        <a href="https://www.google.com/maps/place/Lyne+Pet+Grooming+Services/@13.9392056,120.7298512,15z/data=!4m15!1m8!3m7!1s0x33bda36e1c89119d:0x553442b92202794e!2sLyne+Pet+Grooming+Services!8m2!3d13.9392395!4d120.7297996!10e5!16s%2Fg%2F11md_1bszw!3m5!1s0x33bda36e1c89119d:0x553442b92202794e!8m2!3d13.9392395!4d120.7297996!16s%2Fg%2F11md_1bszw?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-secondary btn-sm"><i class="fas fa-location-dot"></i> Directions via Maps</a>
-        <a href="https://ul.waze.com/ul?ll=13.93926900%2C120.72981100&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" class="btn btn-secondary btn-sm"><i class="fas fa-route"></i> Directions via Waze</a>
+        <a href="https://www.google.com/maps/place/Lyne+Pet+Grooming+Services/@13.9392056,120.7298512,15z/data=!4m15!1m8!3m7!1s0x33bda36e1c89119d:0x553442b92202794e!2sLyne+Pet+Grooming+Services!8m2!3d13.9392395!4d120.7297996!10e5!16s%2Fg%2F11md_1bszw!3m5!1s0x33bda36e1c89119d:0x553442b92202794e!8m2!3d13.9392395!4d120.7297996!16s%2Fg%2F11md_1bszw?entry=ttu&g_ep=EgoyMDI2MDYyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank" class="btn btn-secondary btn-sm tap-hint tap-press">
+          <i class="fas fa-location-dot"></i> Directions via Maps
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
+        <a href="https://ul.waze.com/ul?ll=13.93926900%2C120.72981100&navigate=yes&utm_campaign=default&utm_source=waze_website&utm_medium=lm_share_location" target="_blank" class="btn btn-secondary btn-sm tap-hint tap-press">
+          <i class="fas fa-route"></i> Directions via Waze
+          <span class="tap-finger" aria-hidden="true"></span>
+        </a>
       </div>
     </div>
   </section>
@@ -458,16 +507,26 @@
   <img class="footer-mark" src="https://github.com/UVLights/lyne-pet-grooming-services/blob/main/images%20host/logo%20icon.png?raw=true" alt="">
   <div class="footer-name">Lyne Pet Grooming Services</div>
   <div class="footer-social">
-    <a href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
-    <a href="https://www.instagram.com/lynepetgroomingservices?igsh=NzQ5NDh2b24zZmt0" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="tel:+639652560809" aria-label="Call"><i class="fas fa-phone"></i></a>
+    <a href="https://www.facebook.com/p/Lyne-Pet-Grooming-Services-61579978634702/" target="_blank" aria-label="Facebook" class="tap-hint tap-press">
+      <i class="fab fa-facebook"></i>
+      <span class="tap-finger" aria-hidden="true"></span>
+    </a>
+    <a href="https://www.instagram.com/lynepetgroomingservices?igsh=NzQ5NDh2b24zZmt0" target="_blank" aria-label="Instagram" class="tap-hint tap-press">
+      <i class="fab fa-instagram"></i>
+      <span class="tap-finger" aria-hidden="true"></span>
+    </a>
+    <a href="tel:+639652560809" aria-label="Call" class="tap-hint tap-press">
+      <i class="fas fa-phone"></i>
+      <span class="tap-finger" aria-hidden="true"></span>
+    </a>
   </div>
   <p class="copyright">© 2026 Lyne Pet Grooming Services</p>
 </footer>
 
-<a href="tel:+639652560809" class="floating-call" aria-label="Call Lyne Pet Grooming Services">
+<a href="tel:+639652560809" class="floating-call tap-hint" aria-label="Call Lyne Pet Grooming Services">
   <i class="fas fa-phone"></i>
   <span class="floating-call-label">Call Now</span>
+  <span class="tap-finger" aria-hidden="true"></span>
 </a>
 
 <div class="lightbox" id="lightbox">
