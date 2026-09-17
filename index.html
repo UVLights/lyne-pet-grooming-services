@@ -121,19 +121,14 @@
 
   /* ---------- buttons ---------- */
   .btn{display:inline-flex;align-items:center;gap:9px;padding:14px 26px;border-radius:999px;font-weight:600;font-size:.95rem;text-decoration:none;border:2px solid transparent;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
-  .btn-primary{background:var(--accent-deep);color:#fff;box-shadow:var(--shadow-sm);animation:callThrob 1.7s ease-in-out infinite}
-  .btn-primary:hover{background:var(--accent-deep-hover);transform:translateY(-3px);box-shadow:var(--shadow-md);animation-play-state:paused}
+  .btn-primary{background:var(--accent-deep);color:#fff;box-shadow:var(--shadow-sm)}
+  .btn-primary:hover{background:var(--accent-deep-hover);transform:translateY(-3px);box-shadow:var(--shadow-md)}
   .btn-secondary{background:#fff;color:var(--accent-deep);border-color:var(--brand-border)}
   .btn-secondary:hover{background:var(--surface-alt);transform:translateY(-3px)}
   .btn-sm{padding:10px 18px;font-size:.85rem}
 
-  /* ---------- throbbing call-to-action pulse (hero + floating call buttons) ---------- */
-  @keyframes callThrob{
-    0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(62,110,133,.45)}
-    50%{transform:scale(1.07);box-shadow:0 0 0 14px rgba(62,110,133,0)}
-  }
   @media(prefers-reduced-motion:reduce){
-    .btn-primary,.floating-call,.tap-hint,.tap-press,.tap-hint .tap-finger{animation:none}
+    .tap-hint,.tap-press,.tap-hint .tap-finger{animation:none}
     .tap-hint .tap-finger{opacity:0}
   }
 
@@ -185,7 +180,6 @@
   .tap-hint{position:relative}
   .tap-hint.tap-press{animation:tapPress 3s ease-in-out infinite}
   .tap-hint.tap-press:hover{animation-play-state:paused}
-  .btn-primary.tap-hint,.floating-call.tap-hint{animation:callThrob 1.7s ease-in-out infinite}
   .tap-hint .tap-finger{position:absolute;top:-8px;left:50%;right:auto;width:40px;height:44px;background-image:url('data:image/png;base64,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');background-size:contain;background-repeat:no-repeat;background-position:center;pointer-events:none;opacity:0;transform:translateX(-50%) translateY(0) rotate(0deg);animation:fingerTapUp 3s ease-in-out infinite;filter:drop-shadow(0 3px 4px rgba(0,0,0,.3));z-index:5}
   .tap-hint:hover .tap-finger{animation-play-state:paused}
   @keyframes fingerTapUp{
@@ -204,10 +198,10 @@
   .copyright{font-size:.82rem;opacity:.85}
 
   /* ---------- floating call button ---------- */
-  .floating-call{position:fixed;right:22px;bottom:22px;z-index:400;display:flex;align-items:center;gap:10px;background:var(--accent-deep);color:#fff;padding:16px;border-radius:999px;text-decoration:none;box-shadow:var(--shadow-md);transition:padding .3s ease,transform .25s ease,background .25s ease;animation:callThrob 1.7s ease-in-out infinite}
+  .floating-call{position:fixed;right:22px;bottom:22px;z-index:400;display:flex;align-items:center;gap:10px;background:var(--accent-deep);color:#fff;padding:16px;border-radius:999px;text-decoration:none;box-shadow:var(--shadow-md);transition:padding .3s ease,transform .25s ease,background .25s ease}
   .floating-call i{font-size:1.2rem}
   .floating-call-label{max-width:0;overflow:hidden;white-space:nowrap;font-weight:600;font-size:.9rem;transition:max-width .3s ease}
-  .floating-call:hover{background:var(--accent-deep-hover);transform:translateY(-3px);animation-play-state:paused}
+  .floating-call:hover{background:var(--accent-deep-hover);transform:translateY(-3px)}
   .floating-call:hover .floating-call-label{max-width:120px}
 
   /* ---------- lightbox ---------- */
@@ -221,14 +215,14 @@
   /* uploaded cat & dog artwork — rides the water surface, top set by scroll via JS to match bathWater's level */
   .pets-float{
     position:fixed;left:50%;top:78%;z-index:0;
-    width:260px;max-width:60vw;height:auto;
+    width:320px;max-width:70vw;height:auto;
     transform:translate(-50%,-62%);
     pointer-events:none;
     filter:drop-shadow(0 10px 18px rgba(30,60,80,.28));
     animation:petsFloatBob 4.6s ease-in-out infinite;
   }
   @keyframes petsFloatBob{0%,100%{transform:translate(-50%,-62%) translateY(0)}50%{transform:translate(-50%,-62%) translateY(-14px)}}
-  @media(max-width:600px){.pets-float{width:180px}}
+  @media(max-width:600px){.pets-float{width:220px}}
 
   .bath-scene{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;contain:layout paint}
 
@@ -364,7 +358,7 @@
       <h1><span class="hero-title-main">Lyne</span><span class="hero-title-sub">Pet Grooming Services</span></h1>
       <p class="hero-tagline">Every refreshing groom reflects love and care — treated like a family, one groom at a time.</p>
       <div class="hero-cta">
-        <a href="tel:+639652560809" class="btn btn-primary tap-hint">
+        <a href="tel:+639652560809" class="btn btn-primary tap-hint tap-press">
           <i class="fas fa-phone"></i> Call Now
           <span class="tap-finger" aria-hidden="true"></span>
         </a>
@@ -523,7 +517,7 @@
   <p class="copyright">© 2026 Lyne Pet Grooming Services</p>
 </footer>
 
-<a href="tel:+639652560809" class="floating-call tap-hint" aria-label="Call Lyne Pet Grooming Services">
+<a href="tel:+639652560809" class="floating-call tap-hint tap-press" aria-label="Call Lyne Pet Grooming Services">
   <i class="fas fa-phone"></i>
   <span class="floating-call-label">Call Now</span>
   <span class="tap-finger" aria-hidden="true"></span>
